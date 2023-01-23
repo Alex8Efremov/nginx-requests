@@ -1,7 +1,11 @@
 version: '3.7'
 services:
-  requests:
-    container_name: requests
+  efr_requests:
+    container_name: efr_requests
     build: .
-    ports:
-      - 8889:80
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.efr_requests.entrypoints=websecure"
+      - "traefik.http.routers.efr_requests.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.efr_requests.service=efr_requests"
+      - "traefik.http.services.efr_requests.loadbalancer.server.port=80"
