@@ -1,0 +1,7 @@
+version: '3.7'
+services:
+  requests:
+    container_name: requests
+    build: .
+    ports:
+      - 8889:80

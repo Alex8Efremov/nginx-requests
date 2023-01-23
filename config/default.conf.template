@@ -1,0 +1,16 @@
+server {
+    server_name _;
+    root /var/www;
+    resolver 127.0.0.11;
+    add_header Content-Type text/html;
+
+    location / {
+        return 200 '<html><body>Everything is fine!</body></html>';
+    }
+    location /400 {
+        return 400 '<html><body>This is 400 Bad Request !</body></html>';
+    }
+    location /500 {
+        return 500 '<html><body>This is 400 Internal Server Error !</body></html>';
+    }
+}
