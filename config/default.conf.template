@@ -1,3 +1,8 @@
+limit_req_zone $request_uri zone=by_uri2sec:10m rate=30r/m;
+limit_req_zone $request_uri zone=by_uri1sec:10m rate=60r/m;
+limit_req_zone $request_uri zone=by_uri0_5sec:10m rate=120r/m;
+limit_req_zone $request_uri zone=by_uri0_2sec:10m rate=300r/m;
+
 server {
     server_name _;
     root /var/www;
@@ -12,5 +17,21 @@ server {
     }
     location /500 {
         return 500 '<html><body>This is 400 Internal Server Error !</body></html>';
+    }
+    location /02sec {
+        limit_req zone=by_uri0_5sec burst=5;
+        try_files $uri /index.html;
+    }
+    location /05sec {
+        limit_req zone=by_uri0_2sec burst=5;
+        try_files $uri /index.html;
+    }
+    location /1sec {
+        limit_req zone=by_uri1sec burst=5;
+        try_files $uri /index.html;
+    }
+    location /2sec {
+        limit_req zone=by_uri2sec burst=5;
+        try_files $uri /index.html;
     }
 }

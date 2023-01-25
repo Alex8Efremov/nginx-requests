@@ -9,3 +9,5 @@ services:
       - "traefik.http.routers.efr_requests.rule=Host(`${DOMAIN}`)"
       - "traefik.http.routers.efr_requests.service=efr_requests"
       - "traefik.http.services.efr_requests.loadbalancer.server.port=80"
+    ports:
+      - 8888:80
