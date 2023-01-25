@@ -1,11 +1,13 @@
 SHELL := /bin/bash
 
-DEFAULT_GOAL := up
+.DEFAULT_GOAL := up
 
 DC := docker compose
 
+export COMPOSE_PROJECT_NAME=0-2 0-5 1 2
+
 up: down
-	@$(DC) up --build -d
+	@for i in $(COMPOSE_PROJECT_NAME);do COMPOSE_PROJECT_NAME=$$i docker compose up --build -d ;done
 
 down:
-	@$(DC) down
+	@for i in $(COMPOSE_PROJECT_NAME);do COMPOSE_PROJECT_NAME=$$i docker compose down;done
